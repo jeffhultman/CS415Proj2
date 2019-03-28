@@ -48,15 +48,15 @@ def listAdd(a,b): # a and b are lists
             # returnVal[i+1] = carry
             returnVal.insert(0,sum)
             # returnVal[i] = sum
-            carry = 0
+
         else:
             carry = 0
             returnVal.insert(0,sum)
             # returnVal[i] = sum
     # returnVal.reverse()
 
-    for i in range(len(returnVal) - 1, 0 , -1):
-        if (returnVal[0] == 0):
+    for i in range(len(returnVal)):
+        if (returnVal[0] == 0) and len(returnVal) > 1:
             del returnVal[0]
         else:
             break
@@ -76,16 +76,33 @@ def listSub(a,b): # a-b
         temp = listAdd(a,b)
         temp[0] *= -1
         return temp
-    a, b = makeSameSize(a, b)
     negative = 0
     returnVal = []
-    if (a[0] <= b[0]):
-        a,b = b,a
-        negative = 1
-        a[0] *= -1
+    for i in range(len(a)):
+        if (a[0] == 0) and len(a) > 1:
+            del a[0]
+        else:
+            break
+    for i in range(len(b)):
+        if (b[0] == 0) and len(b) > 1:
+            del b[0]
+        else:
+            break
+    if (len(a) <= len(b)):
+        for i in range(len(a)):
+            if (a[i] < b[i]):
+                a,b = b,a
+                negative = 1
+                # a[0] *= -1
+        
+    a, b = makeSameSize(a, b)
+   
+    
+    
+    
         
 
-    for i in range(len(a) - 1, 0, -1):
+    for i in range(len(a) - 1, -1, -1):
         if ((a[i] - b[i]) < 0) and (i > 0):
             a[i] += 10
             a[i - 1] -= 1
@@ -136,8 +153,10 @@ def karatSuba(a,b):
 def main():
     a = input("Enter a number: (max 1000) ")
     b = input("Enter a second number: (max 1000) ")
+    print("sub:  ", int(a)-int(b))
     a,b = formatNumbers(a,b)
-    val = karatSuba(a,b)
+    # val = karatSuba(a,b)
+    val = listSub(a,b)
     val = makeNum(val)
     print(val)
 
