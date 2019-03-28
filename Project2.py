@@ -18,8 +18,6 @@ def makeSameSize(a,b):
 
 # a and b are forward
 def formatNumbers(a,b):
-    print(a)
-    print(b)
     a = str(a)
     b = str(b)
     c = []
@@ -28,22 +26,17 @@ def formatNumbers(a,b):
         c.append (int(digit))
     for digit in b:
         d.append (int(digit))
-    c.reverse()
-    d.reverse()
     a,b = makeSameSize(c,d)
-    a.reverse()
-    b.reverse()
     return a,b
 
 def listAdd(a,b): # a and b are lists
-    print("A in add:", a)
-    print("B in add:", b)
     if (a[0] < 0):
         a[0] *= -1
         return listSub(b,a)
     if (b[0] < 0):
         b[0] *= -1
         return listSub(a,b)
+    a, b = makeSameSize(a, b)
     carry = 0
     sum = 0
     returnVal = []
@@ -70,8 +63,7 @@ def listAdd(a,b): # a and b are lists
     return returnVal
 
 def listSub(a,b): # a-b
-    print("A in sub:", a)
-    print("B in sub:", b)
+    print('sub operands', a, b)
     # a.reverse()
     # b.reverse()
     if (a[0] < 0):
@@ -84,6 +76,7 @@ def listSub(a,b): # a-b
         temp = listAdd(a,b)
         temp[0] *= -1
         return temp
+    a, b = makeSameSize(a, b)
     negative = 0
     returnVal = []
     if (a[0] <= b[0]):
@@ -95,7 +88,7 @@ def listSub(a,b): # a-b
     for i in range(len(a) - 1, 0, -1):
         if ((a[i] - b[i]) < 0) and (i > 0):
             a[i] += 10
-            a[i+1] -= 1
+            a[i - 1] -= 1
             returnVal.insert(0,a[i] - b[i])
         else:
             returnVal.insert(0,a[i] - b[i])
@@ -108,18 +101,18 @@ def listSub(a,b): # a-b
                 break
     if negative:
         returnVal[0] *= -1
+    print('sub result', returnVal)
     return returnVal
 
 # Input is forward
 def karatSuba(a,b):
-    a, b = makeSameSize(a, b)
     if (len(a) < 2) and (len(b) < 2):
         temp = str(a[0] * b[0])
         result = []
         for i in range(len(temp)):
             result.append(int(temp[i]))
         return result
-
+    a, b = makeSameSize(a, b)
     n = len(a)
     nBy2 = n//2
 
