@@ -18,14 +18,6 @@ def formatNumbers(a,b):
     for digit in b:
         d.append (int(digit))
     a,b = makeSameSize(c,d)
-    # i = len(a) - 1
-    # while a[i] == 0:
-    #     del a[i]
-    #     i -= 1
-    # i = len(b) - 1
-    # while b[i] == 0:
-    #     del b[i]
-    #     i -= 1
     a.reverse()
     b.reverse()
     a =(''.join(str(i) for i in a))
@@ -38,22 +30,21 @@ def karatSuba(aString,bString):
     bString = str(bString)
     a = int(aString)
     b = int(bString)  
-    if (a < 10) | (b < 10):
+    if (len(aString) < 2) | (len(bString) < 2):
         return a * b
   
 
     n = max(len(aString), len(bString))
     nBy2 = int(n/2)
-    a_upper = int(aString[:nBy2])
-    a_lower = int(aString[nBy2:])
-    b_upper = int(bString[:nBy2])
-    b_lower = int(bString[nBy2:])
-    c = karatSuba(a_lower, b_lower)
-    d = karatSuba((a_upper + a_lower), (b_upper + b_lower))
-    e = karatSuba(a_upper, b_upper)
+    a_upper = aString[:nBy2]
+    a_lower = aString[nBy2:]
+    b_upper = bString[:nBy2]
+    b_lower = bString[nBy2:]
+    c = karatSuba(int(a_lower), int(b_lower))
+    d = karatSuba((int(a_upper) + int(a_lower)), (int(b_upper) + int(b_lower)))
+    e = karatSuba(int(a_upper), int(b_upper))
 
-    return (e*10**(n)) + ((d-e-c)*10**(nBy2))+e
-
+    return (e*10**(2*nBy2)) + ((d-e-c)*10**(nBy2)) + e
 
 def main():
     a = input("Enter a number: (max 1000) ")
