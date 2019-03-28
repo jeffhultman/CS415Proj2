@@ -51,8 +51,8 @@ def listAdd(a,b): # a and b are lists
     returnVal.reverse()
 
     for i in range(len(returnVal) - 1):
-        if (returnVal[i] == 0):
-            del returnVal[i]
+        if (returnVal[0] == 0):
+            del returnVal[0]
         else:
             break
     return returnVal
@@ -86,9 +86,9 @@ def listSub(a,b): # a-b
 
     
 
-def karatSuba(a,b): # a and b are lists
+def karatSuba(a,b): # a and b are lists, reversed 
     if (len(a) < 2) and (len(b) < 2):
-        return a[0] * b[0]
+        return [a[0] * b[0]]
     n = len(a)
     nBy2 = int(n/2)
 
@@ -101,28 +101,45 @@ def karatSuba(a,b): # a and b are lists
     sumAUp_ALow = listAdd(a_upper, a_lower)
     sumBUp_BLow = listAdd(b_upper, b_lower)
     d = karatSuba(sumAUp_ALow, sumBUp_BLow)
-    e = karatSuba(a_upper, b_upper) - d - c
+    e = karatSuba(a_upper, b_upper)
     e = listSub(e,d)
     e = listSub(e,c)    
     print(c)
     print(d)
     print(e)
 
-    return (e*10**(2*nBy2)) + ((d-e-c)*10**(nBy2)) + e
+    c.reverse()
+    d.reverse()
+    e.reverse()    
+
+    print(c)
+    print(d)
+    print(e)
+
+    for i in range(2*nBy2):
+        e.append(0)
+    f = listSub(e,d)
+    f = listSub(e,c)
+    for i in range(nBy2):
+        f.append(0)
+    z = listAdd(f,e)
+    return z
+    # return (e*10**(2*nBy2)) + ((d-e-c)*10**(nBy2)) + e
 
 
 def main():
     a = input("Enter a number: (max 1000) ")
     b = input("Enter a second number: (max 1000) ")
-    # print("ActualSub:", (int(a) - int(b)))
+    # print("ActualAdd:", (int(a) + int(b)))
     a,b = formatNumbers(a,b)
     # print(a)
     # print(b)
     val = karatSuba(a,b)
     # val =(''.join(str(i) for i in val))
     # val = int(val)
-    # val = listSub(a,b)
+    # val = listAdd(a,b)
     val = makeNum(val)
-    print("ListSub:  ", val)
+    print(val)
+    # print("ListAdd:  ", val)
 
 main()
