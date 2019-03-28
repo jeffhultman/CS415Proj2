@@ -92,7 +92,10 @@ def listSub(a,b): # a-b
             del b[0]
         else:
             break
-    if (len(a) <= len(b)):
+    if (len(a) < len(b)):
+        a,b = b,a
+        negative = 1
+    elif len(a) == len(b):
         for i in range(len(a)):
             if (a[i] < b[i]):
                 a,b = b,a
@@ -159,7 +162,8 @@ def karatSuba(a,b):
 def main():
     a = input("Enter a number: (max 1000) ")
     b = input("Enter a second number: (max 1000) ")
-    # print("sub:  ", int(a)-int(b))
+
+    print("sub:  ", int(a)-int(b))
     a,b = formatNumbers(a,b)
     val = karatSuba(a,b)
     # val = listSub(a,b)
