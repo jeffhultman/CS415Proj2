@@ -30,6 +30,8 @@ def formatNumbers(a,b):
     return a,b
 
 def listAdd(a,b): # a and b are lists
+    print('add operands', a, b)
+
     if (a[0] < 0):
         a[0] *= -1
         return listSub(b,a)
@@ -60,6 +62,8 @@ def listAdd(a,b): # a and b are lists
             del returnVal[0]
         else:
             break
+    print('add result', returnVal)
+ 
     return returnVal
 
 def listSub(a,b): # a-b
@@ -94,6 +98,8 @@ def listSub(a,b): # a-b
                 a,b = b,a
                 negative = 1
                 # a[0] *= -1
+            else:
+                break
         
     a, b = makeSameSize(a, b)
    
@@ -153,10 +159,10 @@ def karatSuba(a,b):
 def main():
     a = input("Enter a number: (max 1000) ")
     b = input("Enter a second number: (max 1000) ")
-    print("sub:  ", int(a)-int(b))
+    # print("sub:  ", int(a)-int(b))
     a,b = formatNumbers(a,b)
-    # val = karatSuba(a,b)
-    val = listSub(a,b)
+    val = karatSuba(a,b)
+    # val = listSub(a,b)
     val = makeNum(val)
     print(val)
 
