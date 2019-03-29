@@ -70,6 +70,7 @@ def listSub(a,b): # a-b
     # print('sub operands', a, b)
     # a.reverse()
     # b.reverse()
+   
     if (a[0] < 0):
         a[0] *= -1
         temp = listAdd(b,a)
@@ -114,12 +115,14 @@ def listSub(a,b): # a-b
         else:
             returnVal.insert(0,a[i] - b[i])
     # returnVal.reverse() 
+    # print(returnVal)
     if len(returnVal) > 1:
         for i in range(len(returnVal)):
             if (returnVal[0] == 0) and len(returnVal) > 1:
                 del returnVal[0]
             else:
                 break
+    # print(returnVal)
     if negative:
         returnVal[0] *= -1
     # print('sub result', returnVal)
@@ -127,6 +130,8 @@ def listSub(a,b): # a-b
 
 # Input is forward
 def karatSuba(a,b):
+    a = a.copy()
+    b = b.copy()
     if (len(a) < 2) and (len(b) < 2):
         temp = str(a[0] * b[0])
         result = []
@@ -157,28 +162,42 @@ def exponentiate(a, n):
         return [1]
     if n % 2:
         # odd
-        intermediate = exponentiate(a, (n - 1) / 2)
-        print('odd', intermediate)
+        intermediate = exponentiate(a, (n - 1) // 2)
+        # print('odd', intermediate)
         return karatSuba(karatSuba(intermediate, intermediate), a)
     else:
         # even
-        intermediate = exponentiate(a, n / 2)
-        print('even', intermediate)
+        intermediate = exponentiate(a, n // 2)
+        # print('even', intermediate)
         return karatSuba(intermediate, intermediate)
 
 
 def main():
-    tempa = input("Enter a number: (max 1000) ")
-    tempb = input("Enter a second number: (max 1000) ")
 
-    a,b = formatNumbers(tempa,tempb)
-    val = karatSuba(a,b)
-    # val = listSub(a,b)
-    val = makeNum(val)
-    print(val)
-    expo = exponentiate(a, int(tempb))
-    expo = makeNum(expo)
-    print('expo', int(tempa)**int(tempb))
-    print('expo', expo)
+    choice = int(input("Enter 1 for karatSuba multi, 2 for exponentiation, 3 to quit: "))
+    while (choice != 1) and (choice != 2) and (choice != 3):
+        choice = int(input("Enter 1 for karatSuba multi, 2 for exponentiation, 3 to quit: "))
+
+    while choice != 3:
+
+        if choice == 1:
+            tempa = input("Enter a number: (max 1000) ")
+            tempb = input("Enter a second number: (max 1000) ")
+            a,b = formatNumbers(tempa,tempb)
+            val = karatSuba(a,b)
+            # val = listSub(a,b)
+            val = makeNum(val)
+            print(tempa, '*', tempb, '=', val)
+        
+        elif choice == 2:
+            tempa = input("Enter a number: (max 1000) ")
+            tempb = input("Enter a second number: (max 1000) ")
+            a,b = formatNumbers(tempa,tempb)
+            expo = exponentiate(a, int(tempb))
+            expo = makeNum(expo)
+            # print('expo', pow(int(tempa), int(tempb)))
+            print(tempa, '^', tempb, '=', expo)
+        choice = int(input("Enter 1 for karatSuba multi, 2 for exponentiation, 3 to quit: "))
+
 
 main()
