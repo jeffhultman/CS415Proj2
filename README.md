@@ -3,7 +3,7 @@
 
 Instructions: 
 
-```bash
+```
 $ python3 Project2.py
   Enter 1 for karatSuba multi, 2 for exponentiation, 3 to quit: 1
   Enter a number: (max 1000) 23
