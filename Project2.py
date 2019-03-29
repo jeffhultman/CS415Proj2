@@ -30,7 +30,7 @@ def formatNumbers(a,b):
     return a,b
 
 def listAdd(a,b): # a and b are lists
-    print('add operands', a, b)
+    # print('add operands', a, b)
 
     if (a[0] < 0):
         a[0] *= -1
@@ -55,19 +55,19 @@ def listAdd(a,b): # a and b are lists
             carry = 0
             returnVal.insert(0,sum)
             # returnVal[i] = sum
-    # returnVal.reverse()
+    returnVal.insert(0,carry)
 
     for i in range(len(returnVal)):
         if (returnVal[0] == 0) and len(returnVal) > 1:
             del returnVal[0]
         else:
             break
-    print('add result', returnVal)
+    # print('add result', returnVal)
  
     return returnVal
 
 def listSub(a,b): # a-b
-    print('sub operands', a, b)
+    # print('sub operands', a, b)
     # a.reverse()
     # b.reverse()
     if (a[0] < 0):
@@ -106,11 +106,6 @@ def listSub(a,b): # a-b
         
     a, b = makeSameSize(a, b)
    
-    
-    
-    
-        
-
     for i in range(len(a) - 1, -1, -1):
         if ((a[i] - b[i]) < 0) and (i > 0):
             a[i] += 10
@@ -127,7 +122,7 @@ def listSub(a,b): # a-b
                 break
     if negative:
         returnVal[0] *= -1
-    print('sub result', returnVal)
+    # print('sub result', returnVal)
     return returnVal
 
 # Input is forward
@@ -157,17 +152,33 @@ def karatSuba(a,b):
 
     return listAdd(listAdd(c_2, c_1), c_0)
 
+def exponentiate(a, n):
+    if n == 0:
+        return [1]
+    if n % 2:
+        # odd
+        intermediate = exponentiate(a, (n - 1) / 2)
+        print('odd', intermediate)
+        return karatSuba(karatSuba(intermediate, intermediate), a)
+    else:
+        # even
+        intermediate = exponentiate(a, n / 2)
+        print('even', intermediate)
+        return karatSuba(intermediate, intermediate)
 
 
 def main():
-    a = input("Enter a number: (max 1000) ")
-    b = input("Enter a second number: (max 1000) ")
+    tempa = input("Enter a number: (max 1000) ")
+    tempb = input("Enter a second number: (max 1000) ")
 
-    print("sub:  ", int(a)-int(b))
-    a,b = formatNumbers(a,b)
+    a,b = formatNumbers(tempa,tempb)
     val = karatSuba(a,b)
     # val = listSub(a,b)
     val = makeNum(val)
     print(val)
+    expo = exponentiate(a, int(tempb))
+    expo = makeNum(expo)
+    print('expo', int(tempa)**int(tempb))
+    print('expo', expo)
 
 main()
